@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-      "test:newman": "/home/adam/GIT%20Postman%20API/QA%20Academy.postman_collection.json"
+      "test:newman": "newman run '/home/adam/GIT Postman API/QA Academy.postman_collection.json"
 
     },
     "repository": {
