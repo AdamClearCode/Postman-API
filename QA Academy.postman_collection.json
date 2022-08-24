@@ -1,0 +1,540 @@
+{
+	"info": {
+		"_postman_id": "a83769eb-c4a1-43c9-a6fe-a58debe3881f",
+		"name": "QA Academy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22912346"
+	},
+	"item": [
+		{
+			"name": "GET Health",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET Health status code\", () => {",
+							"    pm.expect(pm.response.status).to.eql(\"No Content\");",
+							"})",
+							"",
+							"pm.test(\"GET Health response time\", () => {",
+							"    pm.expect(pm.response.responseTime).to.lessThan(120)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{oauth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:8080/health",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonResponse = pm.response.json();",
+							"pm.globals.set(\"oauth_token\", jsonResponse.token);",
+							"",
+							"",
+							"pm.test(\"POST Login response time\", () => {",
+							"    pm.expect(pm.response.responseTime).to.lessThan(120)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{oauth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\"username\": \"admin\",\"password\":\"password\"}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET Books response status code\", () => {",
+							"    console.log(pm.response)",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"let respBody;",
+							"pm.test(\"GET Books Should verify status code\", () => {",
+							"pm.response.to.have.status(200);",
+							"respBody = pm.response.json();",
+							"console.log(respBody);",
+							"})",
+							"",
+							"pm.test(\"GET Books Should verify type of title\", () => {",
+							"respBody.data.map(item => {",
+							"pm.expect(item.title).to.be.a(\"string\")})",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{oauth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://0.0.0.0:8080/books",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "rented",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Books id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET Book id response status code\", () => {",
+							"    pm.expect(pm.response.code).to.eql(200);    ",
+							"}) ",
+							"",
+							"pm.test(\"GET Book id respone number\", () => {",
+							"    pm.expect(pm.response.code).to.be.a(\"number\");",
+							"})",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{oauth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "id",
+						"value": "cl6vux4mt0623os7bq5a4rf1t",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "cl6vuuna50450os7b2dgelfyg",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8080/books/cl6vuvs9b0518os7bugx7csqj",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"cl6vuvs9b0518os7bugx7csqj"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "cl6vuuna50450os7b2dgelfyg",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST Book reposne time\", () => {",
+							"    pm.expect(pm.response.responseTime).to.lessThan(120)",
+							"})",
+							"",
+							"pm.test(\"POST Book status code\", () => {",
+							"    pm.expect(pm.response.status).to.eql(\"OK\");",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{oauth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"author\": \"Philip K. Dick\",\n        \"title\": \"Man From The High Castle\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8080/books",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT Books status code\", () => {",
+							"    pm.expect(pm.response.status).to.eql(\"OK\");",
+							"    pm.expect(pm.response.status).to.be.a(\"string\")",
+							"})",
+							"",
+							"pm.test(\"PUT Book reposne time\", () => {",
+							"    pm.expect(pm.response.responseTime).to.lessThan(120)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{oauth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n       \"author\": \"Olga Tokarczuk\",\n       \"title\": \"Empuzjon\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8080/books/cl74fdchz03142c7bcbkayfia",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"cl74fdchz03142c7bcbkayfia"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "cl6vuux8h0473os7bcxlqo9lc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Books",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IkFETUlOIiwiaWQiOiJjbDZxOGhham0wMDAwZGw3Ym9mM3Z6MGZmIiwiaWF0IjoxNjYxMzM0MjM0LCJleHAiOjE2NjEzNDE0MzR9.Y2pUtWs52wMtFC3CP9-6VQI0ziB9bgnujI_mK3KUqnw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:8080/books/cl74fdchz03142c7bcbkayfi",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"cl74fdchz03142c7bcbkayfi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH Book rent",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IkFETUlOIiwiaWQiOiJjbDZxOGhham0wMDAwZGw3Ym9mM3Z6MGZmIiwiaWF0IjoxNjYxMTUwNzM0LCJleHAiOjE2NjExNTc5MzR9.5x-TKBoII57-IJZl3jZnlDtRfI9L6T3V_LYvhhQEMWQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:8080/books/cl6vuxi8l0660os7bjfxr4nod",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"cl6vuxi8l0660os7bjfxr4nod"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book return",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJfb25lIiwicm9sZSI6IlVTRVIiLCJpZCI6ImNsNnE4aGFqejAwMDdkbDdiMDJyOGpvczUiLCJpYXQiOjE2NjA5MDcyMzksImV4cCI6MTY2MDkxNDQzOX0.HtermIKqh-dYIZjYAcdQ_mDCacifkz9qI2zFKHqEFt8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:8080/books/return",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"return"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rented books",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IkFETUlOIiwiaWQiOiJjbDZxOGhham0wMDAwZGw3Ym9mM3Z6MGZmIiwiaWF0IjoxNjYxMTUwNzM0LCJleHAiOjE2NjExNTc5MzR9.5x-TKBoII57-IJZl3jZnlDtRfI9L6T3V_LYvhhQEMWQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:8080/books/rented-books",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"rented-books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
