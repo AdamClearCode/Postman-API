@@ -1,6 +1,22 @@
-# Postman:
-Testowanie API
-Aby wykonać raport z Newmana należy posiadać zainstalowanego: Yarn, Newman, NodeJs.
+# Generowanie raportu:
 
-Raport możemy uzyskać wpisując komendę yarn newman run oraz podając katalog docelowy pliku QA Academy.postman_collection.json. W moim przypadku jest to yarn newman run '/home/adam/GIT Postman API/QA Academy.postman_collection.json' lub uzywając polecania #yarn test:newman
+## Wymagania:
+- Yarn
+- NodeJs
+- Postman
 
+## Uruchomienie krok po kroku:
+1. Instalujemy yarna za pomocą komendy:
+```
+yarn
+```
+2. ruchomiamy testy za pomocą:
+```
+yarn test:newman
+```
+
+## Update kolekcji:
+1. Importujemy plik "QA Academy.postman_collection.json".
+2. Updateujemy kolekcję o nowe testyy/zmienne.
+3. Exportujemy kolekcję do repozytorium i nadajemy jej nazwę "QA Academy.postman_collection.json".
+4. Odpalamy testy zgodnie z komendą powyżej.
